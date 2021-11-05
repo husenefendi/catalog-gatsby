@@ -7,3 +7,16 @@ exports.createPages = async ({ actions }) => {
     defer: true,
   })
 }
+exports.onCreatePage = ({ page, actions }) => {
+  const { createPage, deletePage } = actions
+  // deletePage(page)
+  // You can access the variable "house" in your page queries now
+  createPage({
+    ...page,
+    context: {
+      ...page.context,
+      house: `Gryffindor`,
+      slug: 'back'
+    },
+  })
+}
