@@ -30,6 +30,7 @@
   "scripts": {
     "build:local": "npx gatsby build",
     "build": "gatsby build",
+    "predevelop": "gatsby build",
     "develop": "npx gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "prestart": "npx gatsby build",
