@@ -28,7 +28,8 @@
   ],
   "license": "0BSD",
   "scripts": {
-    "build": "npx gatsby build",
+    "build:local": "npx gatsby build",
+    "build": "gatsby build",
     "develop": "npx gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "prestart": "npx gatsby build",
