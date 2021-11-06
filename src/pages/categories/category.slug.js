@@ -48,7 +48,7 @@ const CategorySlug = (props) => {
 export default CategorySlug
 
 export const query = graphql`
-query ($slug: ""){
+query ($slug: String){
  category: strapiCategories(slug: {eq: $slug}) {
     name
     id
