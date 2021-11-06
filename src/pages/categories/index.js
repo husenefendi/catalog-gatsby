@@ -8,24 +8,24 @@ import Seo from "../../components/seo"
 
 const IndexPage = ({ data }) => {
 
-    return <Layout>
-        <Seo title="Category" />
+  return <Layout>
+    <Seo title="Category" />
 
-        <StaticImage
-            src="../../images/gatsby-astronaut.png"
-            width={300}
-            quality={95}
-            formats={["auto", "webp", "avif"]}
-            alt="A Gatsby astronaut"
-            style={{ marginBottom: `1.45rem` }}
-        />
+    <StaticImage
+      src="../../images/gatsby-astronaut.png"
+      width={300}
+      quality={95}
+      formats={["auto", "webp", "avif"]}
+      alt="A Gatsby astronaut"
+      style={{ marginBottom: `1.45rem` }}
+    />
 
-        <p>
-            {data.allStrapiCategories.edges.map((e, i) => {
-                return <><Link to={`/categories/${e.node.slug}`} key={i}>Go to "{e.node.name}"</Link><br /></>
-            })}
-        </p>
-    </Layout>
+    <p>
+      {data.allStrapiCategories.edges.map((e, i) => {
+        return <Link to={`/categories/${e.node.slug}`} style={{ display: 'block' }} key={i}>Go to "{e.node.name}"</Link>
+      })}
+    </p>
+  </Layout>
 }
 
 export default IndexPage
