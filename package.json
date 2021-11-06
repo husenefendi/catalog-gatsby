@@ -21,8 +21,7 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-helmet": "^6.1.0",
-    "rimraf": "^3.0.2"
+    "react-helmet": "^6.1.0"
   },
   "devDependencies": {
     "prettier": "^2.4.1"
@@ -32,15 +31,12 @@
   ],
   "license": "0BSD",
   "scripts": {
-    "build:local": "npx gatsby build",
     "build": "gatsby build",
-    "predevelop": "npm run clean",
-    "develop": "npx gatsby develop",
+    "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "prestart": "npx gatsby build",
-    "start": "npx gatsby develop",
-    "serve": "npx gatsby serve",
-    "clean": "npx gatsby clean",
+    "start": "gatsby develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "repository": {
