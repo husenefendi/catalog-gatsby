@@ -2,6 +2,7 @@ import * as React from "react"
 import { graphql, Link } from "gatsby"
 import { Typography, Chip } from "@mui/material"
 import { StaticImage } from "gatsby-plugin-image"
+import Form from '@rjsf/material-ui'
 
 import Layout from "../../components/layout"
 import Seo from "../../components/seo"
@@ -13,6 +14,22 @@ const curencyFormat = (val) => {
 const ProductDetail = ({ data }) => {
   const { product } = data
   console.log({ product });
+
+  const schema = {
+    "title": "My title",
+    "description": "My description",
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+      },
+      "age": {
+        "type": "number"
+      }
+    }
+  };
+
+
   return <Layout>
     <Seo title={`Product ${product.title}`} />
     <h1>Product : {product.title}</h1>
@@ -33,6 +50,7 @@ const ProductDetail = ({ data }) => {
         return <Chip key={i} component={Link} to={`/categories/${e.slug}`} clickable label={`${e.name}`} color="primary" />
       })}
     </p>
+    <Form schema={schema} />
   </Layout>
 }
 

@@ -8,6 +8,8 @@
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@mui/material": "^5.0.6",
+    "@rjsf/core": "^3.2.0",
+    "@rjsf/material-ui": "^3.2.0",
     "dotenv": "^10.0.0",
     "gatsby": "^4.1.0",
     "gatsby-plugin-gatsby-cloud": "^4.1.0",
