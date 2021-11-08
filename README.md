@@ -1,20 +1,10 @@
 ## 🚀 Quick install
 1. install gatsby cli : https://www.gatsbyjs.com/docs/tutorial/part-0/#gatsby-cli
 2. clone the project
-3. Edit `gatsby-config`
-  ```js
-  ...
-  {
-      resolve: "gatsby-source-strapi",
-      options: {
-        apiURL: "http://localhost:1337", //change url here
-        collectionTypes: ["products", "categories"],
-        queryLimit: 1000,
-      },
-    },
-    ...
-    ```
-
+3. from terminal `cp env.example .env`, change `GATSBY_API_URL` to `https://catalog-strapi-api.herokuapp.com`
+```sh
+GATSBY_API_URL=https://catalog-strapi-api.herokuapp.com
+```
   
 
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
