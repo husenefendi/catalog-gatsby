@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: `.env`
+})
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -18,7 +22,7 @@ module.exports = {
     {
       resolve: "gatsby-source-strapi",
       options: {
-        apiURL: "https://catalog-strapi-api.herokuapp.com",
+        apiURL: process.env.GATSBY_API_URL || 'https://catalog-strapi-api.herokuapp.com',
         collectionTypes: ["products", "categories"],
         queryLimit: 1000,
       },

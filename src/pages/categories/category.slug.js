@@ -11,7 +11,6 @@ const CategorySlug = (props) => {
 
   const { data: { category } } = props
 
-  console.log({ category });
   return <Layout>
     <Seo title="CategorySlug" />
     <h1>This Category Name : {category.name} </h1>
