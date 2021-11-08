@@ -2,10 +2,12 @@ import * as React from "react"
 import { graphql, Link } from "gatsby"
 import { Typography, Chip } from "@mui/material"
 import { StaticImage } from "gatsby-plugin-image"
-import Form from '@rjsf/material-ui'
+// import Form from '@rjsf/material-ui'
 
 import Layout from "../../components/layout"
 import Seo from "../../components/seo"
+import MainForm from "../../components/DinamicForm"
+import MyFormik from "../../components/MyFormik"
 
 const curencyFormat = (val) => {
   return `US $${val.toLocaleString('en-US')}`
@@ -29,6 +31,33 @@ const ProductDetail = ({ data }) => {
     }
   };
 
+  const formSchema = {
+    name: {
+      type: "text",
+      label: "Name",
+      required: true
+    },
+    email: {
+      type: "email",
+      label: "Email",
+      required: true
+    },
+    role: {
+      type: "select",
+      label: "Role",
+      required: true,
+      options: [
+        {
+          label: "Admin",
+          value: "admin"
+        },
+        {
+          label: "User",
+          value: "user"
+        }
+      ]
+    }
+  }
 
   return <Layout>
     <Seo title={`Product ${product.title}`} />
@@ -50,7 +79,9 @@ const ProductDetail = ({ data }) => {
         return <Chip key={i} component={Link} to={`/categories/${e.slug}`} clickable label={`${e.name}`} color="primary" />
       })}
     </p>
-    <Form schema={schema} />
+    {/* <Form schema={schema} /> */}
+    <MainForm schema={schema} />
+    <MyFormik formSchema={formSchema} />
   </Layout>
 }
 
