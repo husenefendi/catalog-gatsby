@@ -14,8 +14,8 @@ const curencyFormat = (val) => {
 }
 
 const ProductDetail = ({ data }) => {
-  const { product } = data
-  console.log({ product });
+  const { product, formData } = data
+  console.log({ product, data });
 
   const schema = {
     "title": "My title",
@@ -30,34 +30,35 @@ const ProductDetail = ({ data }) => {
       }
     }
   };
+  const newSchema = JSON.parse(formData.content_string)
 
-  const formSchema = {
-    name: {
-      type: "text",
-      label: "Name",
-      required: true
-    },
-    email: {
-      type: "email",
-      label: "Email",
-      required: true
-    },
-    role: {
-      type: "select",
-      label: "Role",
-      required: true,
-      options: [
-        {
-          label: "Admin",
-          value: "admin"
-        },
-        {
-          label: "User",
-          value: "user"
-        }
-      ]
-    }
-  }
+  // const formSchema = {
+  //   name: {
+  //     type: "text",
+  //     label: "Name",
+  //     required: true
+  //   },
+  //   email: {
+  //     type: "email",
+  //     label: "Email",
+  //     required: true
+  //   },
+  //   role: {
+  //     type: "select",
+  //     label: "Role",
+  //     required: true,
+  //     options: [
+  //       {
+  //         label: "Admin",
+  //         value: "admin"
+  //       },
+  //       {
+  //         label: "User",
+  //         value: "user"
+  //       }
+  //     ]
+  //   }
+  // }
 
   return <Layout>
     <Seo title={`Product ${product.title}`} />
@@ -81,7 +82,7 @@ const ProductDetail = ({ data }) => {
     </p>
     {/* <Form schema={schema} /> */}
     <MainForm schema={schema} />
-    <MyFormik formSchema={formSchema} />
+    <MyFormik formSchema={newSchema} />
   </Layout>
 }
 
@@ -102,6 +103,11 @@ query($slug:String){
         name
         slug
       }
+    }
+    formData:strapiForm(id: {eq: "Form_1"}) {
+      Title
+      content_string
+      id
     }
   }
   

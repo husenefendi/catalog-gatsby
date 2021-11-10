@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import {
     Formik,
     Form as FormikForm,
-    Field,
+    // Field,
     ErrorMessage,
     useFormikContext,
-    useField,
-    useFormik
+    // useField,
+    // useFormik
 } from 'formik';
 import * as Yup from 'yup'
 import { FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material'
@@ -64,7 +64,7 @@ const MyFormik = ({ formSchema }) => {
 
     useEffect(() => {
         initForm(formSchema);
-    }, []);
+    }, [formSchema]);
 
     const initForm = (formSchema) => {
         let _formData = {};

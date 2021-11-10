@@ -23,7 +23,7 @@ module.exports = {
       resolve: "gatsby-source-strapi",
       options: {
         apiURL: process.env.GATSBY_API_URL || 'https://catalog-strapi-api.herokuapp.com',
-        collectionTypes: ["products", "categories"],
+        collectionTypes: ["products", "categories", "form"],
         queryLimit: 1000,
       },
     },
