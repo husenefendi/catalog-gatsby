@@ -32,34 +32,6 @@ const ProductDetail = ({ data }) => {
   };
   const newSchema = JSON.parse(formData.content_string)
 
-  // const formSchema = {
-  //   name: {
-  //     type: "text",
-  //     label: "Name",
-  //     required: true
-  //   },
-  //   email: {
-  //     type: "email",
-  //     label: "Email",
-  //     required: true
-  //   },
-  //   role: {
-  //     type: "select",
-  //     label: "Role",
-  //     required: true,
-  //     options: [
-  //       {
-  //         label: "Admin",
-  //         value: "admin"
-  //       },
-  //       {
-  //         label: "User",
-  //         value: "user"
-  //       }
-  //     ]
-  //   }
-  // }
-
   return <Layout>
     <Seo title={`Product ${product.title}`} />
     <h1>Product : {product.title}</h1>
