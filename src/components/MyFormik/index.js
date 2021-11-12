@@ -46,7 +46,7 @@ export const SelectField = (props) => {
     return (
         <FormControl variant="outlined" fullWidth style={{ marginTop: "20px" }}>
             {label && <InputLabel htmlFor={name}>{label}</InputLabel>}
-            <Select {...rest} {...(label ? { label } : {})} onChange={(e)=> setData(e.target.value)} value={data}>
+            <Select {...rest} {...(label ? { label } : {})} onChange={(e) => setData(e.target.value)} value={data}>
                 {/* <MenuItem value=""><em>None</em></MenuItem> */}
                 {options.map((opt, i) => <MenuItem value={opt.value} key={i}>{opt.label || opt.value}</MenuItem>)}
             </Select>
@@ -60,19 +60,19 @@ export const DatePicker = (props) => {
     const [value, setValue] = React.useState(new Date('2021-11-12T21:11:54'));
 
     const handleChange = (newValue) => {
-      setValue(newValue);
+        setValue(newValue);
     };
-    return(
+    return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <div style={{ marginTop: "20px" }}>
-        <DesktopDatePicker
-          label={label}
-          inputFormat="MM/dd/yyyy"
-          value={value}
-          onChange={handleChange}
-          renderInput={(params) => <TextField {...params} />}
-        />
-        </div>
+            <div style={{ marginTop: "20px" }}>
+                <DesktopDatePicker
+                    label={label}
+                    inputFormat="MM/dd/yyyy"
+                    value={value}
+                    onChange={handleChange}
+                    renderInput={(params) => <TextField {...params} />}
+                />
+            </div>
         </LocalizationProvider>
     )
 }
@@ -80,14 +80,14 @@ export const DatePicker = (props) => {
 export const RadioButton = (props) => {
     const { name, label, options, ...rest } = props
     return (
-    <FormControl component="fieldset" style={{ marginTop: "20px" }}>
-        <FormLabel component="legend">{label}</FormLabel>
-        <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
-          <FormControlLabel value="male" control={<Radio />} label="Male" />
-          <FormControlLabel value="female" control={<Radio />} label="Female" />
-          <FormControlLabel value="other" control={<Radio />} label="Other" />
-        </RadioGroup>
-    </FormControl>
+        <FormControl component="fieldset" style={{ marginTop: "20px" }}>
+            <FormLabel component="legend">{label}</FormLabel>
+            <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
+                <FormControlLabel value="male" control={<Radio />} label="Male" />
+                <FormControlLabel value="female" control={<Radio />} label="Female" />
+                <FormControlLabel value="other" control={<Radio />} label="Other" />
+            </RadioGroup>
+        </FormControl>
     )
 }
 
@@ -113,25 +113,35 @@ const MyFormik = ({ formSchema }) => {
         let _formData = {};
         let _validationSchema = {};
 
-        {formSchema.map((schema) => {
-            {console.log("schema", schema)}
-            for (var key of Object.keys(schema)) {
-                _formData[key] = "";
-    
-                if (schema[key].type === "Text") {
-                    _validationSchema[key] = Yup.string();
-                } else if (schema[key].type === "Date") {
-                    _validationSchema[key] = Yup.string().email()
-                } else if (schema[key].type === "Select") {
-                    _validationSchema[key] = Yup.string().oneOf(schema[key].options.map(o => o.value));
-                }
-    
-                if (schema[key].required) {
-                    _validationSchema[key] = _validationSchema[key].required('Required');
-                }
+        formSchema.map((schema) => {
+            console.log("schema", { type: schema.type, schema })
+            _formData[schema.id] = "";
+            if (schema.type === "Text") {
+                _validationSchema[schema.id] = Yup.string();
+            } else if (schema.type === "Date") {
+                _validationSchema[schema.id] = Yup.string().email()
+            } else if (schema.type === "Select") {
+                _validationSchema[schema.id] = Yup.string().oneOf(schema.options.map(o => o.value));
             }
-        })}
-        
+            if (schema.required) {
+                _validationSchema[schema.id] = _validationSchema[schema.id].required('Required');
+            }
+            // for (var key of Object.keys(schema)) {
+            //     _formData[schema.id] = "";
+            //     console.log({ key: schema[key] });
+            //     if (schema[key].type === "Text") {
+            //         _validationSchema[schema.id] = Yup.string();
+            //     } else if (schema[key].type === "Date") {
+            //         _validationSchema[schema.id] = Yup.string().email()
+            //     } else if (schema[key].type === "Select") {
+            //         _validationSchema[schema.id] = Yup.string().oneOf(schema[key].options.map(o => o.value));
+            //     }
+
+            //     if (schema[key].required) {
+            //         _validationSchema[key] = _validationSchema[key].required('Required');
+            //     }
+            // }
+        })
 
         setFormData(_formData);
         setValidationSchema(Yup.object().shape({ ..._validationSchema }));
@@ -162,10 +172,11 @@ const MyFormik = ({ formSchema }) => {
     }
 
     const onSubmit = (values, { setSubmitting, resetForm, setStatus }) => {
-        console.log(values);
+        console.log({ onsubmit: values });
         setSubmitting(false);
     }
 
+    console.log({ formData, validationSchema });
     return <Form
         enableReinitialize
         initialValues={formData}
@@ -174,7 +185,6 @@ const MyFormik = ({ formSchema }) => {
     >
         {Object.keys(formSchema).map((key, ind) => (
             <div key={key}>
-                {/* {console.log("key",formSchema[key])} */}
                 {getFormElement(key, formSchema[key])}
             </div>
         ))}
