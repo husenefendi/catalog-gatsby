@@ -41,10 +41,12 @@ export const MyTextField = (props) => {
 
 export const SelectField = (props) => {
     const { name, label, options, ...rest } = props
+    const [data, setData] = useState()
+
     return (
         <FormControl variant="outlined" fullWidth style={{ marginTop: "20px" }}>
             {label && <InputLabel htmlFor={name}>{label}</InputLabel>}
-            <Select {...rest} {...(label ? { label } : {})}>
+            <Select {...rest} {...(label ? { label } : {})} onChange={(e)=> setData(e.target.value)} value={data}>
                 {/* <MenuItem value=""><em>None</em></MenuItem> */}
                 {options.map((opt, i) => <MenuItem value={opt.value} key={i}>{opt.label || opt.value}</MenuItem>)}
             </Select>
@@ -102,7 +104,7 @@ const MyFormik = ({ formSchema }) => {
     const [formData, setFormData] = useState({});
     const [validationSchema, setValidationSchema] = useState({});
 
-    {console.log("formSchema",formSchema)}
+    // console.log({formData, validationSchema})
     useEffect(() => {
         initForm(formSchema);
     }, [formSchema]);
