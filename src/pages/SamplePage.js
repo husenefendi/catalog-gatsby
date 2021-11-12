@@ -30,10 +30,9 @@ export default function SamplePage({ data }) {
     setActiveStep(0)
   }
   const newSchema = JSON.parse(strapiFormWizards.formString)
-  console.log("strapiFormWizards", newSchema)
-
   const steps = newSchema
 
+  console.log({ newSchema, activeStep });
   return (
     <Box sx={{ px: '139px', pb: 5 }}>
       <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: 5 }}>
@@ -98,51 +97,51 @@ export default function SamplePage({ data }) {
           })}
         </Stepper>
       </Box>
-      <Box  sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-      {activeStep === steps.length ? (
-        <>
-          <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - you&apos;re finished</Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleResetClick}>Reset</Button>
-          </Box>
-        </>
-      ) : (
-        <Box sx={{ width: '50%', justifyContent: 'center' }}>
-          <MyFormik formSchema={newSchema[activeStep]?.Content.fields} />
+      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+        {activeStep === steps.length ? (
+          <>
+            <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - you&apos;re finished</Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+              <Box sx={{ flex: '1 1 auto' }} />
+              <Button onClick={handleResetClick}>Reset</Button>
+            </Box>
+          </>
+        ) : (
+          <Box sx={{ width: '50%', justifyContent: 'center' }}>
+            <MyFormik formSchema={newSchema[activeStep]?.Content.fields} />
 
 
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2, px: 5 }}>
-            {activeStep > 0 && (
+            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2, px: 5 }}>
+              {activeStep > 0 && (
+                <Button
+                  style={{ fontSize: '16px', fontWeight: 700, width: '240px' }}
+                  color="inherit"
+                  variant="contained"
+                  disabled={activeStep === 0}
+                  onClick={handleBackClick}
+                  sx={{ mr: 1 }}
+                >
+                  Back
+                </Button>
+              )}
+              <Box sx={{ flex: '1 1 auto' }} />
+
               <Button
-                style={{ fontSize: '16px', fontWeight: 700, width: '240px' }}
-                color="inherit"
                 variant="contained"
-                disabled={activeStep === 0}
-                onClick={handleBackClick}
-                sx={{ mr: 1 }}
+                style={{ backgroundColor: '#3271D2', fontSize: '16px', fontWeight: 700, width: '240px' }}
+                onClick={handleNextClick}
               >
-                Back
+                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
-            )}
-            <Box sx={{ flex: '1 1 auto' }} />
-
-            <Button
-              variant="contained"
-              style={{ backgroundColor: '#3271D2', fontSize: '16px', fontWeight: 700, width: '240px' }}
-              onClick={handleNextClick}
-            >
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
+            </Box>
           </Box>
-        </Box>
-      )}
+        )}
       </Box>
     </Box>
   )
 }
 
-  export const query = graphql`
+export const query = graphql`
   query{
     strapiFormWizards(id: {eq: "Form-wizards_1"}) {
         id

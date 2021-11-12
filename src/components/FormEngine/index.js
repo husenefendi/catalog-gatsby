@@ -16,7 +16,6 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { Button } from '@material-ui/core';
 
 export const Form = (props) => {
-    console.log({ props });
     return (
         <Formik
             {...props}
@@ -105,37 +104,56 @@ export const SubmitButton = (props) => {
     )
 }
 
-const MyFormik = ({ formSchema }) => {
+const FormEngine = ({ formSchema }) => {
     const [formData, setFormData] = useState({});
     const [validationSchema, setValidationSchema] = useState({});
+    const [isStep, setStep] = useState(false)
 
-    console.log({ formData, validationSchema })
+    // console.log({ formData, validationSchema })
     useEffect(() => {
-        initForm(formSchema);
+        if (formSchema.length > 0) {
+            setStep(true)
+            initStepSchema(formSchema)
+        } else {
+            initForm(formSchema);
+        }
     }, [formSchema]);
 
-    const initForm = (formSchema) => {
+    const initStepSchema = (formSchema) => {
+        let _formData = {}
+        let _validationSchema = {}
+
+        formSchema.map((schema, i) => {
+            const { rawForm, rawValidationSchema } = initForm(schema.Content.fields, true)
+            _formData = { ..._formData, ...rawForm }
+            _validationSchema = { ..._validationSchema, ...rawValidationSchema }
+        })
+
+        console.log({ _formData, _validationSchema });
+    }
+
+    const initForm = (formSchema, cb = false) => {
         let _formData = {};
         let _validationSchema = {};
 
         formSchema.map((schema) => {
-            console.log({ schema });
             for (var key of Object.keys(schema)) {
                 _formData[schema.id] = "";
-
-                if (schema[key].type === "Text") {
+                if (schema.type === "Text") {
                     _validationSchema[schema.id] = Yup.string();
-                } else if (schema[key].type === "Date") {
+                } else if (schema.type === "Date") {
                     _validationSchema[schema.id] = Yup.string().email()
-                } else if (schema[key].type === "Select") {
-                    _validationSchema[schema.id] = Yup.string().oneOf(schema[schema.id].options.map(o => o.value));
+                } else if (schema.type === "Select") {
+                    _validationSchema[schema.id] = Yup.string().oneOf(schema.options.map(o => o.value));
                 }
 
-                if (schema[key].required) {
+                if (schema.required) {
                     _validationSchema[schema.id] = _validationSchema[schema.id].required('Required');
                 }
             }
         })
+        if (cb)
+            return { rawForm: _formData, rawValidationSchema: _validationSchema }
 
         setFormData(_formData);
         setValidationSchema(Yup.object().shape({ ..._validationSchema }));
@@ -169,6 +187,31 @@ const MyFormik = ({ formSchema }) => {
         console.log(values);
         setSubmitting(false);
     }
+    // console.log({ formSchema });
+    // return <Form
+    //     enableReinitialize
+    //     initialValues={formData}
+    //     validationSchema={validationSchema}
+    //     onSubmit={onSubmit}
+
+    // >
+    //     {Object.keys(formSchema).map((key, ind) => {
+    //         return <div key={key}>
+    //             {getFormElement(key, formSchema[key])}
+    //         </div>
+    //     })}
+    //     <Button >
+    //         Save
+    //     </Button>
+    // </Form>
+
+    const handlingRenderStep = () => {
+
+    }
+
+    const handlingRenderForm = () => {
+
+    }
 
     return <Form
         enableReinitialize
@@ -177,16 +220,9 @@ const MyFormik = ({ formSchema }) => {
         onSubmit={onSubmit}
 
     >
-        {Object.keys(formSchema).map((key, ind) => {
-            return <div key={key}>
-                {getFormElement(key, formSchema[key])}
-            </div>
-        })}
-        <Button >
-            Save
-        </Button>
+        <h3>ok</h3>
     </Form>
 
 }
 
-export default MyFormik
+export default FormEngine
